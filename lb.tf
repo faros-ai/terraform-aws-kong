@@ -52,10 +52,13 @@ resource "aws_lb" "external" {
     create = var.lb_creation_timeout
     delete = var.lb_deletion_timeout
   }
-  access_logs {
-    bucket  = var.lb_logging_bucket
-    prefix  = var.external_lb_logging_prefix
-    enabled = true
+  dynamic "access_logs" {
+    for_each = toset(length(var.lb_logging_bucket) > 0 ? [lb_logging_bucket] : [])
+    content {
+      bucket = access_logs.value
+      prefix = length(var.external_lb_logging_prefix) > 0 ? var.external_lb_logging_prefix : format("%s-%s-external", var.service, var.environment)
+      enabled = length(var.lb_logging_bucket) > 0
+    }
   }
 }
 
