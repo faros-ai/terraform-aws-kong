@@ -52,6 +52,11 @@ resource "aws_lb" "external" {
     create = var.lb_creation_timeout
     delete = var.lb_deletion_timeout
   }
+  access_logs {
+    bucket  = var.lb_logging_bucket
+    prefix  = var.external_lb_logging_prefix
+    enabled = true
+  }
 }
 
 resource "aws_lb_listener" "external-https" {
