@@ -604,5 +604,4 @@ variable "lb_logging_bucket" {
 variable "external_lb_logging_prefix" {
   description = "s3 prefix for the external LB access logs"
   type        = string
-  default     = "kong-external-lb"
 }
