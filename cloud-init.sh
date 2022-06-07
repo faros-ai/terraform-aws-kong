@@ -116,8 +116,8 @@ nginx_http_client_body_buffer_size = 16m
 # Avoid checking client body size
 nginx_http_client_max_body_size = 0
 
-# Disable proxy buffering and stream directly to the client
-nginx_proxy_proxy_request_buffering = off
+# Disable proxy response buffering and stream directly to the client
+nginx_proxy_proxy_buffering = off
 
 # extend default "combined" format by adding perf timing. Also - trying to get request IDs from headers, e.g., x-vercel-id
 # see https://docs.nginx.com/nginx/admin-guide/monitoring/logging/ for config parameters
