@@ -206,6 +206,11 @@ cat <<'EOF' > /etc/logrotate.d/kong
 }
 EOF
 
+# Allow write access for logrotate
+cat <<'EOF' > /etc/logrotate.d/kong
+ReadWritePaths=/usr/local/kong/logs
+EOF
+
 # Start Kong under supervision
 echo "Starting Kong under supervision"
 mkdir -p /etc/sv/kong /etc/sv/kong/log
