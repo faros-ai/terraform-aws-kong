@@ -635,12 +635,14 @@ variable "cloudwatch_agent_system_config" {
   description = "Cloudwatch Agent Config for system metrics"
   type        = string
 
-  default = ""
+  # set non-existent parameter name to avoid granting broad permissions
+  default = "non-existent-parameter"
 }
 
 variable "cloudwatch_agent_kong_config" {
   description = "Cloudwatch Agent Config for Kong"
   type        = string
 
-  default = ""
+  # set non-existent parameter name to avoid granting broad permissions
+  default = "non-existent-parameter"
 }
