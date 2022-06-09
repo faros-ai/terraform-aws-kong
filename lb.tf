@@ -84,11 +84,38 @@ resource "aws_lb_listener" "external-https" {
   }
 }
 
+resource "aws_lb_listener_rule" "metabase_deny_login" {
+  count        = var.enable_external_lb ? 1 : 0
+  listener_arn = "${aws_lb_listener.front_end.arn}"
+  priority     = 10
+
+  action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Forbidden"
+      status_code  = "403"
+    }
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/metabase/api/session", "/metabase/api/session/", "/api/session", "/api/session/"]
+  }
+
+  condition {
+    field  = "http-request-method"
+    values = ["POST"]
+  }
+
+}
+
 resource "aws_lb_listener_rule" "external-routing" {
   count = var.enable_external_lb ? 1 : 0
 
   listener_arn = aws_lb_listener.external-https[0].arn
-  priority     = 1
+  priority     = 20
 
   action {
     type             = "forward"
