@@ -84,6 +84,8 @@ No requirements.
 | bastion\_cidr\_blocks | Bastion hosts allowed access to PostgreSQL and Kong Admin | `list(string)` | <pre>[<br>  "127.0.0.1/32"<br>]</pre> | no |
 | ce\_pkg | Url for Community Edition package matching the OS distro | `string` | `"https://download.konghq.com/gateway-2.x-ubuntu-focal/pool/all/k/kong/kong_2.3.3_amd64.deb"` | no |
 | cloudwatch\_actions | List of cloudwatch actions for Alert/Ok | `list(string)` | `[]` | no |
+| cloudwatch\_agent\_kong\_config | Cloudwatch Agent Kong Config | `string` | `""` | no |
+| cloudwatch\_agent\_system\_config | Cloudwatch Agent System Config | `string` | `""` | no |
 | db\_backup\_retention\_period | The number of days to retain backups | `string` | `7` | no |
 | db\_engine\_mode | Engine mode for Aurora | `string` | `"provisioned"` | no |
 | db\_engine\_version | Database engine version | `string` | `"11.4"` | no |

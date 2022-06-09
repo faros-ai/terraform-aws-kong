@@ -630,3 +630,17 @@ variable "drop_invalid_header_fields" {
 
   default = false
 }
+
+variable "cloudwatch_agent_system_config" {
+  description = "Cloudwatch Agent System Config"
+  type        = string
+
+  default = ""
+}
+
+variable "cloudwatch_agent_kong_config" {
+  description = "Cloudwatch Agent Kong Config"
+  type        = string
+
+  default = ""
+}
