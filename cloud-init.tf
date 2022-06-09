@@ -14,8 +14,8 @@ locals {
     SESSION_SECRET           = random_string.session_secret.result
     ADMIN_CERT_DOMAIN        = var.ssl_cert_admin_domain
     ADMIN_USER               = var.admin_user
-    CLOUDWATCH_SYSTEM_CONFIG = var.cloudwatch_agent_system_config
-    CLOUDWATCH_KONG_CONFIG   = var.cloudwatch_agent_kong_config
+    CLOUDWATCH_SYSTEM_CONFIG = var.cloudwatch_agent_system_config.name
+    CLOUDWATCH_KONG_CONFIG   = var.cloudwatch_agent_kong_config.name
   })
 
 }
