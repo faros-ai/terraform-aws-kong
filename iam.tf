@@ -10,6 +10,16 @@ data "aws_iam_policy_document" "kong-ssm" {
   }
 
   statement {
+    actions   = ["ssm:GetParameter"]
+    resources = ["arn:aws:ssm:*:*:parameter/${var.cloudwatch_agent_system_config}"]
+  }
+
+  statement {
+    actions   = ["ssm:GetParameter"]
+    resources = ["arn:aws:ssm:*:*:parameter/${var.cloudwatch_agent_kong_config}"]
+  }
+
+  statement {
     actions   = ["kms:Decrypt"]
     resources = [aws_kms_key.kong.arn]
   }
@@ -41,6 +51,11 @@ resource "aws_iam_role" "kong" {
 resource "aws_iam_role_policy_attachment" "kong_ssm_managed_instance_policy_attach" {
   role       = aws_iam_role.kong.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+resource "aws_iam_role_policy_attachment" "kong_cloudwatch_agent_server_policy_attach" {
+  role       = aws_iam_role.kong.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }
 
 resource "aws_iam_instance_profile" "kong" {

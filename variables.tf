@@ -630,3 +630,19 @@ variable "drop_invalid_header_fields" {
 
   default = false
 }
+
+variable "cloudwatch_agent_system_config" {
+  description = "Cloudwatch Agent Config for system metrics"
+  type        = string
+
+  # set non-existent parameter name to avoid granting broad permissions
+  default = "non-existent-parameter"
+}
+
+variable "cloudwatch_agent_kong_config" {
+  description = "Cloudwatch Agent Config for Kong"
+  type        = string
+
+  # set non-existent parameter name to avoid granting broad permissions
+  default = "non-existent-parameter"
+}

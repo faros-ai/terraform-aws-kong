@@ -9,6 +9,15 @@ aws_get_parameter() {
         --query Parameter.Value 2>/dev/null
 }
 
+# Install Cloudwatch Agent
+curl -sL https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb \
+  -o amazon-cloudwatch-agent.deb
+dpkg -i amazon-cloudwatch-agent.deb
+
+# Pull config and start Cloudwatch Agent
+amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:${CLOUDWATCH_SYSTEM_CONFIG} -s
+amazon-cloudwatch-agent-ctl -a append-config -m ec2 -c ssm:${CLOUDWATCH_KONG_CONFIG} -s
+
 # Enable auto updates
 echo "Enabling auto updates"
 echo unattended-upgrades unattended-upgrades/enable_auto_updates boolean true \
