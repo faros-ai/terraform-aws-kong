@@ -632,14 +632,14 @@ variable "drop_invalid_header_fields" {
 }
 
 variable "cloudwatch_agent_system_config" {
-  description = "Cloudwatch Agent System Config"
+  description = "Cloudwatch Agent Config for system metrics"
   type        = string
 
   default = ""
 }
 
 variable "cloudwatch_agent_kong_config" {
-  description = "Cloudwatch Agent Kong Config"
+  description = "Cloudwatch Agent Config for Kong"
   type        = string
 
   default = ""
