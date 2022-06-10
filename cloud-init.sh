@@ -216,9 +216,10 @@ cat <<'EOF' > /etc/logrotate.d/kong
 EOF
 
 # Allow write access for logrotate
-cat <<'EOF' > /etc/logrotate.d/kong
+cat <<'EOF' >> /lib/systemd/system/logrotate.service
 ReadWritePaths=/usr/local/kong/logs
 EOF
+systemctl daemon-reload && systemctl start logrotate
 
 # Start Kong under supervision
 echo "Starting Kong under supervision"
