@@ -84,7 +84,7 @@ resource "aws_lb_listener" "external-https" {
   }
 }
 
-resource "aws_lb_listener_rule" "metabase_deny_login" {
+resource "aws_lb_listener_rule" "deny_post_to_paths" {
   count        = var.enable_external_lb ? 1 : 0
   listener_arn = "${aws_lb_listener.front_end.arn}"
   priority     = 10
@@ -100,15 +100,16 @@ resource "aws_lb_listener_rule" "metabase_deny_login" {
   }
 
   condition {
-    field  = "path-pattern"
-    values = ["/metabase/api/session", "/metabase/api/session/", "/api/session", "/api/session/"]
+    path_pattern {
+      values = var.external_lb_paths_deny_on_post
+    }
   }
 
   condition {
-    field  = "http-request-method"
-    values = ["POST"]
+    http_request_method {
+      values = ["POST"]
+    }
   }
-
 }
 
 resource "aws_lb_listener_rule" "external-routing" {
