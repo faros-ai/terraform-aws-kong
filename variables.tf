@@ -646,3 +646,15 @@ variable "cloudwatch_agent_kong_config" {
   # set non-existent parameter name to avoid granting broad permissions
   default = "non-existent-parameter"
 }
+
+variable "external_lb_deny_paths" {
+  description = "List of path to deny access from public internet (works together with external_lb_deny_methods)"
+  type        = list(string)
+  default     = []
+}
+
+variable "external_lb_deny_methods" {
+  description = "List of methods to deny access from public internet (works together with external_lb_deny_paths)"
+  type        = list(string)
+  default     = []
+}
