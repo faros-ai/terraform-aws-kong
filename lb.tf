@@ -84,8 +84,8 @@ resource "aws_lb_listener" "external-https" {
   }
 }
 
-resource "aws_lb_listener_rule" "deny_post_to_paths" {
-  count        = var.enable_external_lb ? 1 : 0
+resource "aws_lb_listener_rule" "deny_paths_and_methods" {
+  count        = var.enable_external_lb && (length(var.external_lb_deny_paths) > 0 || length(var.external_lb_deny_methods) > 0) ? 1 : 0
   listener_arn = "${aws_lb_listener.front_end.arn}"
   priority     = 10
 
@@ -101,13 +101,13 @@ resource "aws_lb_listener_rule" "deny_post_to_paths" {
 
   condition {
     path_pattern {
-      values = var.external_lb_paths_deny_on_post
+      values = var.external_lb_deny_paths
     }
   }
 
   condition {
     http_request_method {
-      values = ["POST"]
+      values = var.external_lb_deny_methods
     }
   }
 }
