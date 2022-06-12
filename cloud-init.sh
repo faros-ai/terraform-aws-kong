@@ -219,7 +219,6 @@ EOF
 cat <<'EOF' >> /lib/systemd/system/logrotate.service
 ReadWritePaths=/usr/local/kong/logs
 EOF
-systemctl daemon-reload && systemctl start logrotate
 
 # Start Kong under supervision
 echo "Starting Kong under supervision"
