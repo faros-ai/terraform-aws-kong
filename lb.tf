@@ -86,7 +86,7 @@ resource "aws_lb_listener" "external-https" {
 
 resource "aws_lb_listener_rule" "deny_paths_and_methods" {
   count        = var.enable_external_lb && (length(var.external_lb_deny_paths) > 0 || length(var.external_lb_deny_methods) > 0) ? 1 : 0
-  listener_arn = "${aws_lb_listener.front_end.arn}"
+  listener_arn = aws_lb_listener.external-https[0].arn
   priority     = 10
 
   action {
