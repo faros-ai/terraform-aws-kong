@@ -126,6 +126,8 @@ No requirements.
 | enable\_internal\_lb\_alarms | Boolean to enable/create the internal load balancer alarms | `string` | `true` | no |
 | enable\_redis | Boolean to enable redis AWS resource | `string` | `false` | no |
 | external\_cidr\_blocks | External ingress access to Kong Proxy via the load balancer | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
+| external\_lb\_deny\_methods | List of methods to deny access from public internet (works together with external\_lb\_deny\_paths) | `list(string)` | `[]` | no |
+| external\_lb\_deny\_paths | List of path to deny access from public internet (works together with external\_lb\_deny\_methods) | `list(string)` | `[]` | no |
 | external\_lb\_logging\_prefix | s3 prefix for the external LB access logs | `string` | `""` | no |
 | health\_check\_healthy\_threshold | Number of consecutives checks before a unhealthy target is considered healthy | `string` | `5` | no |
 | health\_check\_interval | Seconds between health checks | `string` | `5` | no |
