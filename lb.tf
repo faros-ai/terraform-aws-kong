@@ -84,8 +84,8 @@ resource "aws_lb_listener" "external-https" {
   }
 }
 
-resource "aws_lb_listener_rule" "deny_paths_and_methods" {
-  count        = var.enable_external_lb && (length(var.external_lb_deny_paths) > 0 || length(var.external_lb_deny_methods) > 0) ? 1 : 0
+resource "aws_lb_listener_rule" "deny_paths_on_post" {
+  count        = var.enable_external_lb && (length(var.external_lb_deny_paths_on_post) > 0) ? 1 : 0
   listener_arn = aws_lb_listener.external-https[0].arn
   priority     = 10
 
@@ -101,13 +101,41 @@ resource "aws_lb_listener_rule" "deny_paths_and_methods" {
 
   condition {
     path_pattern {
-      values = var.external_lb_deny_paths
+      values = var.external_lb_deny_paths_on_post
     }
   }
 
   condition {
     http_request_method {
-      values = var.external_lb_deny_methods
+      values = ["POST"]
+    }
+  }
+}
+
+resource "aws_lb_listener_rule" "deny_paths_on_get" {
+  count        = var.enable_external_lb && (length(var.external_lb_deny_paths_on_get) > 0) ? 1 : 0
+  listener_arn = aws_lb_listener.external-https[0].arn
+  priority     = 11
+
+  action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Forbidden"
+      status_code  = "403"
+    }
+  }
+
+  condition {
+    path_pattern {
+      values = var.external_lb_deny_paths_on_get
+    }
+  }
+
+  condition {
+    http_request_method {
+      values = ["GET"]
     }
   }
 }
